@@ -37,6 +37,10 @@
   }
 }
 
+.draggable-bar {
+  padding: 10px;
+}
+
 .card {
   display: flex;
   align-items: center;

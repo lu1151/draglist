@@ -1,13 +1,39 @@
-function insertBars(list) {
+import React, { useState } from "react"
 
+const DRAGGABLE = "DRAGGABLE";
+const BAR = "BAR";
+
+function draggable(item, id) {
+    return {
+        type: DRAGGABLE,
+        id,
+        data: item
+    };
 }
 
-function useDraggable(list) {
+function insertBars(list) {
+    let i = 0;
 
-    const dragList = insertBars(list);
+    const newBar = () => {
+        return {
+            type: BAR,
+            id: i++
+        }
+    }
+
+    return [newBar()].concat(
+        ...list.map(item => {
+            return [draggable(item, i++), newBar()]
+        })
+    )
+}
 
 
+export default function useDraggable(list) {
 
+    const [dragList, setDragList] = useState(() => {
+        insertBars(list);
+    })
 
     return {
         dragList

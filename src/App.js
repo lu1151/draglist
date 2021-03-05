@@ -1,5 +1,6 @@
-import logo from './logo.svg';
+import React from "react";
 import './App.css';
+import useDraggable from "./useDraggable"
 
 const list = [
   {
@@ -20,20 +21,29 @@ const list = [
 ]
 
 
-function App() {
+export default function App() {
   return (
-    <div>
-      <Card {...list[0]} />
+    <div className="App">
+      <DraggableList list={list} />
     </div>
   );
 }
 
 function DraggableList({ list }) {
-  return (
-    <div className="draggable-list">
 
-    </div>
-  )
+  const { dragList } = useDraggable(list);
+
+  return dragList.map((item, i) => {
+    if (item.type === "BAR") {
+      return <Bar id={i} key={item.id} />
+    } else {
+      return (
+        <Draggable key={item.id}>
+          <Card {...item.data} />
+        </Draggable>
+      )
+    }
+  })
 }
 
 function Draggable({ children }) {
@@ -43,7 +53,7 @@ function Draggable({ children }) {
 }
 
 function Bar() {
-
+  return <div className="draggable-bar"></div>
 }
 
 function Card({ title, src }) {
@@ -55,4 +65,3 @@ function Card({ title, src }) {
   )
 }
 
-export default App;
