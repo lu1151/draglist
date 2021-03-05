@@ -32,10 +32,43 @@ function insertBars(list) {
 export default function useDraggable(list) {
 
     const [dragList, setDragList] = useState(() => {
-        insertBars(list);
+        return insertBars(list);
     })
+    const [dragOver, setDragOver] = useState(null);
+    const [dragging, setDragging] = useState(null);
 
     return {
-        dragList
+        dragList,
+        createDropperProps: id => {
+            return {
+                dragging,
+                dragOver,
+                eventHandlers: {
+                    onDragOver: e => {
+                        e.preventDefault();
+                        setDragOver(id)
+                    },
+                    onDragLeave: e => {
+                        e.preventDefault();
+                        setDragOver(null)
+                    }
+                }
+            }
+        },
+        createDraggerProps: id => {
+            return {
+                id,
+                key: id,
+                dragging,
+                eventHandlers: {
+                    onDragStart: () => {
+                        setDragging(id)
+                    },
+                    onDragEnd: () => {
+                        setDragging(null)
+                    }
+                }
+            }
+        }
     }
 }

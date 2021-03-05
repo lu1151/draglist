@@ -20,6 +20,15 @@ const list = [
   },
 ]
 
+function cls(def, conditions) {
+  const list = [def];
+  conditions.forEach(cond => {
+    if (cond[0]) {
+      list.push(cond[1]);
+    }
+  });
+  return list.join(" ");
+}
 
 export default function App() {
   return (
@@ -31,14 +40,14 @@ export default function App() {
 
 function DraggableList({ list }) {
 
-  const { dragList } = useDraggable(list);
+  const { dragList, createDraggerProps, createDropperProps } = useDraggable(list);
 
   return dragList.map((item, i) => {
     if (item.type === "BAR") {
-      return <Bar id={i} key={item.id} />
+      return <Bar id={i} {...createDropperProps(i)} key={item.id} />
     } else {
       return (
-        <Draggable key={item.id}>
+        <Draggable {...createDraggerProps(i)}>
           <Card {...item.data} />
         </Draggable>
       )
@@ -46,9 +55,9 @@ function DraggableList({ list }) {
   })
 }
 
-function Draggable({ children }) {
+function Draggable({ children, eventHandlers, dragging, id }) {
   return (
-    <div className="draggable">{children}</div>
+    <div {...eventHandlers} draggable={true} className={cls("draggable", [dragging === id, "dragging"])}>{children}</div>
   )
 }
 

@@ -59,3 +59,14 @@
 .card span {
   margin-left: 200px;
 }
+
+.draggable {
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.draggable.dragging {
+  opacity: 0;
+  position: fixed;
+  width: 100%;
+}
