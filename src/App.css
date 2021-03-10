@@ -38,7 +38,14 @@
 }
 
 .draggable-bar {
+  transition: background-color 1s ease-out;
   padding: 10px;
+}
+
+.draggable-bar.dragover .inner {
+  transition: height 1s ease;
+  margin: 10px 0;
+  background-color: gray;
 }
 
 .card {

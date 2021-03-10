@@ -20,7 +20,7 @@ const list = [
   },
 ]
 
-function cls(def, conditions) {
+function cls(def, ...conditions) {
   const list = [def];
   conditions.forEach(cond => {
     if (cond[0]) {
@@ -61,8 +61,15 @@ function Draggable({ children, eventHandlers, dragging, id }) {
   )
 }
 
-function Bar() {
-  return <div className="draggable-bar"></div>
+function Bar({ id, dragging, dragOver, eventHandlers }) {
+  if (id === dragging + 1) {
+    return null
+  }
+  return <div {...eventHandlers} className={cls("draggable-bar", [dragOver === id, "dragover"])}>
+    <div className="inner" style={{
+      height: id === dragOver ? "80px" : "0px"
+    }} />
+  </div>
 }
 
 function Card({ title, src }) {
