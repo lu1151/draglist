@@ -4,6 +4,11 @@ import useDraggable from "./useDraggable"
 
 const list = [
   {
+    title: "N",
+    src:
+      "https://www.designwizard.com/wp-content/uploads/2019/10/Nike-Logo.png"
+  },
+  {
     title: "Adidas",
     src:
       "https://corunco.com/wp-content/uploads/2016/10/adidas-black-vector-logo-400x400.png"
